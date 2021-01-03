@@ -4,12 +4,15 @@ class CircularArrayQueue {
    * Default constructor
    * @param {int} size 
    */
-  constructor(size = 10) {
+  constructor(size = 10, options = {
+    overwrite: true
+  }) {
     this.items = new Array(size).fill(null)
     this.maxSize = size
     this.currentSize = 0
-    this.head = -1
-    this.tail = -1
+    this.head = 0
+    this.tail = 0
+    this.settings = { ...options }
   }
 
   /**
@@ -39,16 +42,17 @@ class CircularArrayQueue {
    */
   enqueue = item => {
     try {
-      // Position the head and tail pointers to 0
-      if ( this.isEmpty() ) {
-        this._resetPointers()
-      } else {
-        this._incrementTail()
-      }
+      if (
+        !this.settings.overwrite &&
+        this.isFull()
+        ) throw new Error('Overwriting not allowed')
+      // Increment head if the value to be overwritten is not null
+      if (this.items[this.tail] != null) this._incrementHead()
       // Add the new item in the queue
       this._addItem(item)
       // Increment the current size
       this._incrementCurrentSize()
+      this._incrementTail()
       // Return a value that indicates a succesful operation
       return true      
     } catch (e) {
