@@ -1,0 +1,25 @@
+{
+  "name": "circular-array-queue",
+  "version": "1.0.0",
+  "description": "JavaScript implementation of circular array queue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miikkasaxlund/circular-array-queue.git"
+  },
+  "keywords": [
+    "circular",
+    "array",
+    "queue",
+    "javascript"
+  ],
+  "author": "miikkasaxlund",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miikkasaxlund/circular-array-queue/issues"
+  },
+  "homepage": "https://github.com/miikkasaxlund/circular-array-queue#readme"
+}
