@@ -1,18 +1,18 @@
-const CircularArrayQueue = require('./src/CircularArrayQueue')
+const CircularArrayQueue = require('./dist')
 
 let n = 1
-const queue = new CircularArrayQueue(3)
+const queue = new CircularArrayQueue(3, { overwrite: false })
 
 const printQueue = (q, note = '') => {
   try {
-    items = q.getItems()
+    items = q.items
     console.log(`------start printQueue-----`)
     console.log('Print operation #', n)
     console.info('Note:', note)
     console.table(items)
-    console.log('Head:', q.getHead())
-    console.log('Tail:', q.getTail())
-    console.log('Size:', q.getSize())
+    console.log('Head:', q.head)
+    console.log('Tail:', q.tail)
+    console.log('Size:', q.count)
     console.log(`------end printQueue-----`)
     n++
   } catch (e) {
@@ -51,3 +51,6 @@ printQueue(queue, 'Second overflow')
 // Dequeue an item
 queue.dequeue()
 printQueue(queue, 'Dequeue an item')
+
+queue.clear()
+printQueue(queue, 'Clear the queue')
