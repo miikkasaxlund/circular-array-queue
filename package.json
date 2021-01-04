@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "node test.js",
+    "test": "./node_modules/.bin/jest --config jest.config.js --silent",
+    "coverage": "./node_modules/.bin/jest --config jest.config.js --coverage",
     "build": "./node_modules/.bin/tsc"
   },
   "repository": {
