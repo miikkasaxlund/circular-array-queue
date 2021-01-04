@@ -39,10 +39,14 @@ class CircularArrayQueue<T> {
 
   /**
    * Default constructor
+   * 
+   * Size minimum value is 2
    */
-  constructor(size: number = 10,options?: Options) {
+  constructor(size: number = 10, options: Options = {
+    overwrite: true
+  }) {
     this._queue = [...new Array<T>(size)].map(() => null)
-    this._size = size
+    this._size = size < 2 ? 2 : size
     this._count = 0
     this._head = 0
     this._tail = 0
@@ -83,8 +87,9 @@ class CircularArrayQueue<T> {
    * queue.enqueue(item) // Returns a boolean value
    * ```
    */
-  public enqueue(item: any): boolean {
+  public enqueue(item: T): boolean {
     try {
+      if (!item) throw new Error('No empty values')
       if (!this._settings?.overwrite && this.isFull()) 
         throw new Error('Overwriting not allowed')
       // Increment head if the value to be overwritten is not null
@@ -96,7 +101,7 @@ class CircularArrayQueue<T> {
       this._incrementCount()
       this._incrementTail()
       // Return a value that indicates a succesful operation
-      return true      
+      return (this.items[this._tail - 1] === item)
     } catch (e) {
       console.error(e)
       return false
@@ -145,6 +150,15 @@ class CircularArrayQueue<T> {
       this._queue[i] = null
     }
     this._resetProps()
+  }
+
+  /**
+   * Fill the queue
+   */
+  public fill(newItems: Array<T>): void {
+    newItems.forEach(newItem => {
+      this.enqueue(newItem)
+    })
   }
 
   /**
