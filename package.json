@@ -2,9 +2,11 @@
   "name": "circular-array-queue",
   "version": "1.0.0",
   "description": "JavaScript implementation of circular array queue",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "build": "./node_modules/.bin/tsc"
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/miikkasaxlund/circular-array-queue/issues"
   },
-  "homepage": "https://github.com/miikkasaxlund/circular-array-queue#readme"
+  "homepage": "https://github.com/miikkasaxlund/circular-array-queue#readme",
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
 }
