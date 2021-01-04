@@ -1,7 +1,7 @@
 const CircularArrayQueue = require('./dist')
 
 let n = 1
-const queue = new CircularArrayQueue(3, { overwrite: false })
+const queue = new CircularArrayQueue(3)
 
 const printQueue = (q, note = '') => {
   try {
