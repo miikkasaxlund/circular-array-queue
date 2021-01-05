@@ -1,6 +1,18 @@
 # Circular Array Queue
 
-JavaScript implementation of circular array queue
+CircularArrayQueue provides a data structure in which items can be stored in an end-to-end connected fixed-size buffer.
+
+<!--
+## Table of Contents
+
+
+
+## About CircularArrayQueue
+
+
+[Link to docs]()
+
+-->
 
 ## Installation
 
@@ -40,3 +52,7 @@ queue.getSize()
 // Get the items in the queue
 const items = queue.getItems()
 ```
+
+## Links
+
+- [Circular Buffer - Wikipedia](https://en.wikipedia.org/wiki/Circular_buffer)
