@@ -20,8 +20,8 @@ interface Options {
  * const queue = new CircularArrayQueue()
  * // Initialize with predefined size
  * const queue = new CircularArrayQueue(15)
- * // Initialize with size and options
- * const queue = new CircularArrayQueue(15, { overwrite: true })
+ * // Initialize with size and overwrite prevention
+ * const queue = new CircularArrayQueue(15, { overwrite: false })
  * ```
  */
 class CircularArrayQueue<T> {
@@ -30,11 +30,41 @@ class CircularArrayQueue<T> {
    * PRIVATE PROPERTIES
    */
 
+  /** 
+   * Array for storing the items in the queue
+   * 
+   * @internal 
+   */
   private readonly _queue: Array<T|null>
+  /** 
+   * Size of the queue
+   * 
+   * @internal 
+   */
   private readonly _size: number
+  /** 
+   * Settings object
+   * 
+   * @internal 
+   */
   private readonly _settings?: Options
+  /** 
+   * Current count of items in the queue
+   * 
+   * @internal 
+   */
   private _count: number
+  /** 
+   * Read pointer index
+   * 
+   * @internal 
+   */
   private _head: number
+  /** 
+   * Write pointer index
+   * 
+   * @internal 
+   */
   private _tail: number
 
   /**
@@ -63,6 +93,8 @@ class CircularArrayQueue<T> {
    * ```
    * if (queue.isFull()) console.log('Queue is full')
    * ```
+   * 
+   * @category Public methods
    */
   public isFull(): boolean {
     return (this._count === this._size)
@@ -74,6 +106,8 @@ class CircularArrayQueue<T> {
    * ```
    * if (queue.isEmpty()) console.log('Queue is empty')
    * ```
+   * 
+   * @category Public methods
    */
   public isEmpty(): boolean {
     return (this._count === 0)
@@ -86,6 +120,8 @@ class CircularArrayQueue<T> {
    * const item = { message: 'Hello' }
    * queue.enqueue(item) // Returns a boolean value
    * ```
+   * 
+   * @category Public methods
    */
   public enqueue(item: T): boolean {
     try {
@@ -114,6 +150,8 @@ class CircularArrayQueue<T> {
    * ```
    * const item = queue.dequeue()
    * ```
+   * 
+   * @category Public methods
    */
   public dequeue(): T | null {
     try {
@@ -131,11 +169,13 @@ class CircularArrayQueue<T> {
   }
 
   /**
-   * Peek at the value at the head of the queue
+   * Peek at the value at the head of the queue without removing it
    * 
    * ```
    * const nextInLine = queue.peek() 
    * ```
+   * 
+   * @category Public methods
    */
   public peek(): T | null {
     return this._queue[this._head]
@@ -143,6 +183,8 @@ class CircularArrayQueue<T> {
 
   /**
    * Clear the queue
+   * 
+   * @category Public methods
    */
   public clear(): void {
     let i: number
@@ -154,6 +196,8 @@ class CircularArrayQueue<T> {
 
   /**
    * Fill the queue
+   * 
+   * @category Public methods
    */
   public fill(newItems: Array<T>): void {
     newItems.forEach(newItem => {
@@ -167,6 +211,8 @@ class CircularArrayQueue<T> {
 
   /**
    * Adds an item in tail location in the queue
+   * 
+   * @internal
    */
   private _addItem(item: T): void {
     this._queue[this._tail] = item
@@ -174,6 +220,8 @@ class CircularArrayQueue<T> {
 
   /**
    * Returns an item from the head location in the queue
+   * 
+   * @internal
    */
   private _getItem(): T | null {
     return this._queue[this._head]
@@ -181,6 +229,8 @@ class CircularArrayQueue<T> {
 
   /**
    * Nullificate the location of head in the queue
+   * 
+   * @internal
    */
   private _nullHead(): void {
     this._queue[this._head] = null
@@ -188,6 +238,8 @@ class CircularArrayQueue<T> {
 
   /**
    * Reset head, tail and count to 0
+   * 
+   * @internal
    */
   private _resetProps(): void {
     this._head = this._tail = this._count = 0
@@ -198,6 +250,8 @@ class CircularArrayQueue<T> {
    * 
    * If the tail tries to overflow the queue,
    * it is set to 0
+   * 
+   * @internal
    */
   private _incrementTail(): void {
     // Increment tail unless it overflows, in which case it is set to 0
@@ -209,6 +263,8 @@ class CircularArrayQueue<T> {
    * 
    * If the head tries to overflow the queue,
    * it is set to 0
+   * 
+   * @internal
    */
   private _incrementHead(): void {
     this._head = (this._head + 1) % this._size
@@ -219,6 +275,8 @@ class CircularArrayQueue<T> {
    * 
    * If the count tries to overflow the queue,
    * it is set to the maximum value
+   * 
+   * @internal
    */
   private _incrementCount(): void {
     this._count = Math.min(this._count + 1, this._size)
@@ -229,6 +287,8 @@ class CircularArrayQueue<T> {
    * 
    * If the count tries to underflow array,
    * it is set to the minimun value of 0
+   * 
+   * @internal
    */
   private _decrementCount():void {
     this._count = Math.max(this._count - 1, 0)
@@ -240,26 +300,36 @@ class CircularArrayQueue<T> {
 
   /**
    * Get the head index
+   * 
+   * @category Getters
    */
   get head(): number { return this._head }
 
   /**
    * Get the tail index
+   * 
+   * @category Getters
    */
   get tail(): number { return this._tail }
 
   /**
    * Get the count of items in the queue
+   * 
+   * @category Getters
    */
   get count(): number { return this._count }
 
   /**
    * Get the items in the queue
+   * 
+   * @category Getters
    */
   get items(): Array<T|null> { return this._queue }
 
   /**
    * Get the size of the queue
+   * 
+   * @category Getters
    */
   get size(): number { return this._size }
 }
