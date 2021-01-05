@@ -3,6 +3,9 @@
  * @packageDocumentation
  */
 
+/**
+ * Queue Options interface
+ */
 interface Options {
   overwrite?: boolean
 }
